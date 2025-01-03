@@ -1,21 +1,57 @@
 <script setup>
+import { ref } from 'vue'
+import Step1 from './PersonalInformation.vue'
+import Step2 from './EducationComp.vue'
+import Step3 from './ExperienceComp.vue'
+import Step4 from './SkillsAndExpertiseComp.vue'
+import Step5 from './CustomSectionComp.vue'
+import LivePreview from './LivePreview.vue'
 
+let currentStep = ref(1)
 
+const resumeData = ref({
+  personalInfo: {
+    name: '',
+    email: '',
+    phone: '',
+    attributes: '',
+    additionalLinks: [
+      { title: 'LinkedIn', link: '' },
+      { title: 'Github', link: '' },
+    ],
+  },
+  education: [{ name: '', title: '', grade: '', location: '', from: '', to: '' }],
+  experience: [{ name: '', position: '', location: '', from: '', to: '', description: '' }],
+  skills: [{ category: '', skill: '' }],
+  custom: [{ name: 'Custom Section 1', parts: [{ title: '', point: '' }] }],
+})
 
-import CustomSectionComp from './CustomSectionComp.vue';
+const next = () => {
+  if (currentStep.value < 5) {
+    currentStep.value++
+  }
+}
 
+const prev = () => {
+  if (currentStep.value > 1) {
+    currentStep.value--
+  }
+}
 </script>
 
 <template>
   <div>
-    <img
-      src="../assets/image copy.png"
-      height="30rem"
-      width="30rem"
-      style="margin: 0.25rem 0.5rem"
-    />
+    <div style="display: flex; justify-content: space-between; width: 90%">
+      <img
+        src="../assets/image copy.png"
+        height="30rem"
+        width="30rem"
+        style="margin: 0.25rem 0.5rem"
+      />
+      <h1 class="previewheader" style="margin: 0; padding: 0">Live Preview</h1>
+    </div>
     <hr />
-    <div>
+    <div class="content">
       <div class="bar">
         <div class="steps">
           <div class="fullstep">
@@ -59,19 +95,53 @@ import CustomSectionComp from './CustomSectionComp.vue';
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="formArea">
-      <CustomSectionComp />
+      <div class="formArea">
+        <component
+          :is="
+            {
+              1: Step1,
+              2: Step2,
+              3: Step3,
+              4: Step4,
+              5: Step5,
+            }[currentStep]
+          "
+          v-model:data="resumeData"
+          @next="next"
+          @prev="prev"
+        />
+      </div>
+      <div class="previewArea">
+        <div>
+          <LivePreview :data="resumeData" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.formArea {
-  margin-left: 8rem;
+.previewheader {
+  /* Live Preview */
 
-  width: 60%;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 2rem;
+  line-height: 2.5rem;
+
+  color: #79747e;
+}
+.content {
+  display: flex;
+  gap: 0px;
+}
+.previewArea {
+  width: 35.75%;
+}
+.formArea {
+  width: 55%;
   height: 100vh;
 
   background: #d9d9d9;
@@ -86,7 +156,6 @@ import CustomSectionComp from './CustomSectionComp.vue';
   width: 2rem;
 }
 .bar {
-  position: absolute;
   display: flex;
   justify-content: center;
   flex-direction: column;

@@ -1,13 +1,29 @@
-<script setup></script>
+<script setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const goToContact = () => {
+  router.push({ hash: '#contactus' })
+}
+
+const goToFAQ = () => {
+  router.push({ hash: '#faqid' })
+}
+
+const goToBuildResume = () => {
+  router.push('/build-resume')
+}
+</script>
 <template>
   <div class="main">
     <div class="nav">
       <div class="navbar">
         <img src="../assets/image.png" height="40rem" width="40rem" />
         <div class="headt">Home</div>
-        <div class="headt">Build Resume</div>
-        <div class="headt">Contact Us</div>
-        <div class="headt">FAQs</div>
+        <div class="headt" @click="goToBuildResume">Build Resume</div>
+        <div class="headt" @click="goToContact">Contact Us</div>
+        <div class="headt" @click="goToFAQ">FAQs</div>
         <div class="headt">Login/Sign Up</div>
       </div>
     </div>
@@ -20,7 +36,7 @@
       <h3 class="subhead">Launch your career to new heights.</h3>
     </div>
     <div class="startBbox">
-      <button class="startB">
+      <button class="startB" @click="goToBuildResume">
         <h5 class="starth">Get Started</h5>
         <img src="../assets/image copy 2.png" height="14rem" width="14rem" />
       </button>
@@ -64,7 +80,7 @@
   <hr />
 
   <div class="faqs" style="margin-bottom: 4rem">
-    <div class="faqw">
+    <div class="faqw" id="faqid">
       <h1 class="Faq">FAQs</h1>
     </div>
     <div class="faq">
@@ -122,8 +138,8 @@
   </div>
 
   <div class="footer">
-    <div class="contactBox">
-      <h2 class="contactHead">Contact Us</h2>
+    <div class="contactBox" id="contactus">
+      <h2 class="contactHead" @click="goToContact">Contact Us</h2>
       <div class="contacts">
         <div class="contact">
           <img
@@ -176,6 +192,9 @@
 </template>
 
 <style scope>
+html {
+  scroll-behavior: smooth;
+}
 .copyrightBox {
   display: flex;
   justify-content: center;
@@ -366,10 +385,9 @@
 .mainh {
   display: flex;
   justify-content: center;
-  gap:0.25rem;
+  gap: 0.25rem;
 }
 .head {
-
   padding-top: 0.325rem;
   font-size: 2rem;
   font-family: 'Inter';
@@ -377,7 +395,7 @@
   font-weight: 900;
   font-size: 2.5rem;
   line-height: 2rem;
-  width:18rem;
+  width: 18rem;
   color: #000000;
 }
 
@@ -406,8 +424,8 @@
   border: none;
 }
 
-.startBbox{
-  margin:10rem 0 0 0;
+.startBbox {
+  margin: 10rem 0 0 0;
   display: flex;
   justify-content: center;
 }
