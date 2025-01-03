@@ -23,7 +23,7 @@ const resumeData = ref({
   education: [{ name: '', title: '', grade: '', location: '', from: '', to: '' }],
   experience: [{ name: '', position: '', location: '', from: '', to: '', description: '' }],
   skills: [{ category: '', skill: '' }],
-  custom: [{ name: 'Custom Section 1', parts: [{ title: '', point: '' }] }],
+  custom: [{ name: 'Section 1', parts: [{ title: '', point: '' }] }],
 })
 
 const next = () => {
@@ -138,11 +138,12 @@ const prev = () => {
   gap: 0px;
 }
 .previewArea {
-  width: 35.75%;
+  width: 38%;
+  min-height: 100vh;
 }
 .formArea {
-  width: 55%;
-  height: 100vh;
+  width: 53%;
+  min-height: 100vh;
 
   background: #d9d9d9;
 }
@@ -161,7 +162,7 @@ const prev = () => {
   flex-direction: column;
   padding-left: 2rem;
   background-color: black;
-  height: 100vh;
+  min-height: 100vh;
   width: 8rem;
   gap: 1rem;
 }

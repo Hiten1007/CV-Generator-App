@@ -18,28 +18,58 @@ const addlink = () => {
 
     <div class="imp">
       <div class="maininfo">
-        <label for="names" class ="labels">Name</label>
+        <label for="names" class="labels">Name</label>
         <input type="text" name="names" id="names" v-model="data.personalInfo.name" class="input" />
       </div>
       <div class="maininfo">
-        <label for="phone" class ="labels">Phone No.</label>
-        <input type="number" name="phone" id="phone" v-model="data.personalInfo.phone" class="input" />
+        <label for="phone" class="labels">Phone No.</label>
+        <input
+          type="number"
+          name="phone"
+          id="phone"
+          v-model="data.personalInfo.phone"
+          class="input"
+        />
       </div>
       <div class="maininfo">
-        <label for="emails" class ="labels">E-mail</label>
-        <input type="email" name="emails" id="emails" v-model="data.personalInfo.email" class="input" />
+        <label for="emails" class="labels">E-mail</label>
+        <input
+          type="email"
+          name="emails"
+          id="emails"
+          v-model="data.personalInfo.email"
+          class="input"
+        />
       </div>
       <div class="maininfo">
-        <label for="attrs" class ="labels">Attributes</label>
-        <input type="text" name="attrs" id="attrs" v-model="data.personalInfo.attributes" class="input" />
+        <label for="attrs" class="labels">Attributes</label>
+        <input
+          type="text"
+          name="attrs"
+          id="attrs"
+          v-model="data.personalInfo.attributes"
+          class="input"
+        />
       </div>
     </div>
     <div>
       <legend class="linkhead">Additional Links</legend>
-      <div v-for="(adlink, index) in data.personalInfo.additionalLinks" :key="index" >
+      <div v-for="(adlink, index) in data.personalInfo.additionalLinks" :key="index">
         <div class="links">
-          <input type="text" v-bind:id="adlink.title" v-model="adlink.title" class="input linkname" />: 
-          <input type="text" v-bind:id="adlink.link" v-model="adlink.link" class="input " />
+          <input
+            type="text"
+            v-bind:id="adlink.title"
+            v-model="adlink.title"
+            class="input linkname"
+          />:
+          <input
+            type="text"
+            v-bind:id="adlink.link"
+            v-model="adlink.link"
+            class="input"
+            placeholder=" (type here to make it appear)"
+            style="width: 15rem"
+          />
         </div>
       </div>
       <button class="addlink" type="button" @click="addlink">+</button>
@@ -50,33 +80,30 @@ const addlink = () => {
 </template>
 
 <style scoped>
-.next1{
-  margin:1.5rem 0 0 30rem;
-padding: 0.8rem 2.5rem;
+.next1 {
+  margin: 1.5rem 0 0 30rem;
+  padding: 0.8rem 2.5rem;
 
-/* M3/label/large */
-font-family: 'Roboto';
-font-style: normal;
-font-weight: 500;
-font-size: 1rem;
-line-height: 1.5rem;
+  /* M3/label/large */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5rem;
 
-display: flex;
-align-items: center;
-letter-spacing: 0.1px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.1px;
 
-color: #FFFFFF;
+  color: #ffffff;
 
-
-
-background: #000000;
-box-shadow: 0px 0.4rem 0.4rem rgba(0, 0, 0, 0.25);
-border-radius: 100px;
-border:none
-
+  background: #000000;
+  box-shadow: 0px 0.4rem 0.4rem rgba(0, 0, 0, 0.25);
+  border-radius: 100px;
+  border: none;
 }
-.addlink{
-background-color: black;
+.addlink {
+  background-color: black;
   border-radius: 4rem;
   text-align: center;
   margin-top: 0.5rem;
@@ -94,25 +121,21 @@ background-color: black;
   border: none;
 
   /* icon */
-
-
 }
-.links{
-  margin:0.3rem;
+.links {
+  margin: 0.5rem;
 }
-.linkname{
-  background-color: #D9D9D9;
-  width:5rem;
+.linkname {
+  background-color: #d9d9d9;
+  width: 5rem;
 
-font-family: 'Inter';
-font-style: normal;
-font-weight: 600;
-font-size: 1rem;
-line-height: 1.5rem;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.5rem;
 
-color: #000000;
-
-
+  color: #000000;
 }
 
 .headers {
@@ -142,50 +165,45 @@ color: #000000;
   color: #000000;
 }
 
-.imp{
+.imp {
   display: grid;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
   margin-top: 2.1rem;
-  gap:6rem;
+  gap: 6rem;
   row-gap: 1.5rem;
 }
 
-.maininfo{
+.maininfo {
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
 }
 
-.labels{
+.labels {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.5rem;
 
-font-family: 'Inter';
-font-style: normal;
-font-weight: 600;
-font-size: 1rem;
-line-height: 1.5rem;
-
-color: #000000;
-
+  color: #000000;
 }
 
-
-.input{
-  outline:none;
+.input {
+  outline: none;
   border: none;
 }
 
-.linkhead{
-  margin:1rem 0 0.7rem;
+.linkhead {
+  margin: 1rem 0 0.7rem;
 
-font-family: 'Inter';
-font-style: normal;
-font-weight: 600;
-font-size: 1.3rem;
-line-height: 1.8rem;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.3rem;
+  line-height: 1.8rem;
 
-color: #000000;
-
-
+  color: #000000;
 }
 </style>
