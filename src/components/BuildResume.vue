@@ -6,6 +6,15 @@ import Step3 from './ExperienceComp.vue'
 import Step4 from './SkillsAndExpertiseComp.vue'
 import Step5 from './CustomSectionComp.vue'
 import LivePreview from './LivePreview.vue'
+import Step6 from './FinalComp.vue'
+
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const goToHome = () => {
+  router.push('/')
+}
 
 let currentStep = ref(1)
 
@@ -27,7 +36,7 @@ const resumeData = ref({
 })
 
 const next = () => {
-  if (currentStep.value < 5) {
+  if (currentStep.value < 6) {
     currentStep.value++
   }
 }
@@ -47,6 +56,7 @@ const prev = () => {
         height="30rem"
         width="30rem"
         style="margin: 0.25rem 0.5rem"
+        @click="goToHome"
       />
       <h1 class="previewheader" style="margin: 0; padding: 0">Live Preview</h1>
     </div>
@@ -56,42 +66,42 @@ const prev = () => {
         <div class="steps">
           <div class="fullstep">
             <div class="step">1</div>
-            <h2 hidden class="stepText">Personal Information</h2>
+            <h2 class="stepText">Personal Information</h2>
           </div>
-          <hr class="line" />
         </div>
+        <hr class="line" />
         <div class="steps">
           <div class="fullstep">
             <div class="step">2</div>
-            <h2 hidden class="stepText">Education</h2>
+            <h2 class="stepText">Education</h2>
           </div>
-          <hr class="line" />
         </div>
+        <hr class="line" />
         <div class="steps">
           <div class="fullstep">
             <div class="step">3</div>
-            <h2 hidden class="stepText">Experience</h2>
+            <h2 class="stepText">Experience</h2>
           </div>
-          <hr class="line" />
         </div>
+        <hr class="line" />
         <div class="steps">
           <div class="fullstep">
             <div class="step">4</div>
-            <h2 hidden class="stepText">Skills</h2>
+            <h2 class="stepText">Skills</h2>
           </div>
-          <hr class="line" />
         </div>
+        <hr class="line" />
         <div class="steps">
           <div class="fullstep">
             <div class="step">5</div>
-            <h2 hidden class="stepText">Custom Section</h2>
+            <h2 class="stepText">Custom Section</h2>
           </div>
-          <hr class="line" />
         </div>
+        <hr class="line" />
         <div class="steps">
           <div class="fullstep">
             <div class="step">6</div>
-            <h2 hidden class="stepText">Finalize</h2>
+            <h2 class="stepText">Finalize</h2>
           </div>
         </div>
       </div>
@@ -105,6 +115,7 @@ const prev = () => {
               3: Step3,
               4: Step4,
               5: Step5,
+              6: Step6,
             }[currentStep]
           "
           v-model:data="resumeData"
@@ -112,10 +123,8 @@ const prev = () => {
           @prev="prev"
         />
       </div>
-      <div class="previewArea">
-        <div>
-          <LivePreview :data="resumeData" />
-        </div>
+      <div class="previewArea" id="cv-preview">
+        <LivePreview :data="resumeData" />
       </div>
     </div>
   </div>
@@ -140,6 +149,7 @@ const prev = () => {
 .previewArea {
   width: 38%;
   min-height: 100vh;
+  padding: 2rem;
 }
 .formArea {
   width: 53%;
@@ -147,67 +157,82 @@ const prev = () => {
 
   background: #d9d9d9;
 }
-.fullstep {
-  display: flex;
-}
-
-.line {
-  margin: 1rem 0 0 1rem;
-  transform: rotate(90deg);
-  width: 2rem;
-}
 .bar {
   display: flex;
-  justify-content: center;
   flex-direction: column;
+  justify-content: center;
   padding-left: 2rem;
   background-color: black;
   min-height: 100vh;
-  width: 8rem;
+  width: 8rem; /* Initial width */
   gap: 1rem;
+  position: relative; /* Allow overlap */
+  transition: width 0.4s ease; /* Smooth expand */
+  overflow: hidden; /* Hide content during collapse */
+}
+
+.bar:hover {
+  width: 35rem; /* Expanded width */
+}
+
+.steps {
+  display: flex;
+  align-items: center;
+}
+
+.fullstep {
+  display: flex;
+  align-items: center;
+}
+
+.line {
+  margin: 0 0 0 1rem;
+  transform: rotate(90deg);
+  width: 2rem;
 }
 
 .step {
   background-color: white;
   border-radius: 4rem;
   text-align: center;
-  padding-top: 1.5rem;
-
   width: 4rem;
   height: 4rem;
-
-  font-family: 'Inter';
-  font-style: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
   font-weight: 900;
   font-size: 1rem;
-  line-height: 1.2rem;
-
   color: #000000;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease; /* Smooth color transition */
 }
 
 .stepText {
-  /* Personal Information */
-
-  font-family: 'Inter';
-  font-style: normal;
+  font-family: 'Inter', sans-serif;
   font-weight: 900;
   font-size: 1.1rem;
   line-height: 2rem;
-
   color: #ffffff;
-  padding-top: 1.1rem;
-  padding-left: 1.8rem;
+  margin-left: 1.5rem;
+  max-width: 0; /* Hidden initially */
+  overflow: hidden;
+  opacity: 0; /* Fully invisible */
+  white-space: nowrap; /* Prevent wrapping */
+  transition:
+    max-width 0.4s ease,
+    opacity 0.4s ease; /* Smooth reveal */
 }
 
-.stephovered {
-  color: white;
+.bar:hover .stepText {
+  max-width: 15rem; /* Adjust to fit content */
+  opacity: 1; /* Fade in */
+}
+
+.bar:hover .step {
   background-color: black;
-  border-color: white;
-  border-style: solid;
-  padding-top: 1.3rem;
-}
-
-.barhovered {
-  width: 22rem;
+  color: white;
+  border: 2px solid white; /* Optional for hover effect */
 }
 </style>

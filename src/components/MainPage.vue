@@ -1,5 +1,15 @@
 <script setup>
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+
+import LoginorSignUp from './LoginorSignUp.vue'
+
+const hover = ref(false)
+
+const openModal = function () {
+  const modal = document.getElementById('modal')
+  modal.style.display = 'flex'
+}
 
 const router = useRouter()
 
@@ -14,6 +24,19 @@ const goToFAQ = () => {
 const goToBuildResume = () => {
   router.push('/build-resume')
 }
+
+const clicked = (id) => {
+  const slide = document.querySelector('#s' + id)
+  const answer = document.querySelector('#a' + id)
+  const line = document.querySelector('#h' + id)
+  const triangle = document.querySelector('#t' + id)
+  const faqt = document.querySelector('#f' + id)
+  slide.classList.toggle('slideclicked')
+  faqt.classList.toggle('faqtclicked')
+  triangle.classList.toggle('triangleclicked')
+  answer.classList.toggle('hidden')
+  line.classList.toggle('hidden')
+}
 </script>
 <template>
   <div class="main">
@@ -24,7 +47,7 @@ const goToBuildResume = () => {
         <div class="headt" @click="goToBuildResume">Build Resume</div>
         <div class="headt" @click="goToContact">Contact Us</div>
         <div class="headt" @click="goToFAQ">FAQs</div>
-        <div class="headt">Login/Sign Up</div>
+        <div class="headt" id="openModalBtn" @click="openModal">Login/Sign Up</div>
       </div>
     </div>
 
@@ -36,12 +59,25 @@ const goToBuildResume = () => {
       <h3 class="subhead">Launch your career to new heights.</h3>
     </div>
     <div class="startBbox">
-      <button class="startB" @click="goToBuildResume">
+      <button
+        class="startB"
+        @click="goToBuildResume"
+        @mouseenter="hover = true"
+        @mouseleave="hover = false"
+      >
         <h5 class="starth">Get Started</h5>
-        <img src="../assets/image copy 2.png" height="14rem" width="14rem" />
+        <img v-show="!hover" src="../assets/image copy 2.png" height="14rem" width="14rem" />
+        <img
+          v-show="hover"
+          src="../assets/external-link-svgrepo-com.svg"
+          height="14rem"
+          width="14rem"
+        />
       </button>
     </div>
   </div>
+
+  <LoginorSignUp />
 
   <div class="mainC">
     <div>
@@ -84,50 +120,50 @@ const goToBuildResume = () => {
       <h1 class="Faq">FAQs</h1>
     </div>
     <div class="faq">
-      <div class="slide">
-        <div class="faqt">Q. Do I need to sign up to use the app?</div>
-        <div class="triangle"></div>
+      <div class="slide" id="s1">
+        <div class="faqt" id="f1">Q. Do I need to sign up to use the app?</div>
+        <div class="triangle" @click="clicked(1)" id="t1"></div>
       </div>
-      <hr hidden color="white" class="line" />
-      <div hidden class="answer">
+      <hr color="white" class="line hidden" id="h1" />
+      <div class="answer hidden" id="a1">
         A. No, you can start using the app without signing up. However, signing up lets you save
         your CVs for future edits and access advanced features.
       </div>
     </div>
     <div class="faq">
-      <div class="slide">
-        <div class="faqt">Q. How do I choose the right template?</div>
-        <div class="triangle"></div>
+      <div class="slide" id="s2">
+        <div class="faqt" id="f2">Q. How do I choose the right template?</div>
+        <div class="triangle" @click="clicked(2)" id="t2"></div>
       </div>
-      <hr hidden color="white" class="line" />
-      <div hidden class="answer">
+      <hr color="white" class="line hidden" id="h2" />
+      <div class="answer hidden" id="a2">
         A. Select a template that aligns with your industry and the role you are applying for. For
         example, use a formal template for corporate jobs and a creative one for design or marketing
         roles.
       </div>
     </div>
     <div class="faq">
-      <div class="slide">
-        <div class="faqt">Q. What should I include in my CV?</div>
-        <div class="triangle"></div>
+      <div class="slide" id="s3">
+        <div class="faqt" id="f3">Q. What should I include in my CV?</div>
+        <div class="triangle" @click="clicked(3)" id="t3"></div>
       </div>
-      <hr hidden color="white" class="line" />
-      <div hidden class="answer">
+      <hr class="line hidden" id="h3" />
+      <div class="answer hidden" id="a3">
         A. Your CV should include: Contact information, A professional summary, Work experience,
         Education details, Skills relevant to the job, Additional sections like certifications or
-        projects, if applicable
+        projects, if applicable.
       </div>
     </div>
     <div class="faq">
-      <div class="slide">
-        <div class="faqt">
+      <div class="slide" id="s4">
+        <div class="faqt" id="f4" style="padding-top: 0.3rem">
           Q. How do I use the CV generator app to create a personalized and professional CV, and
           what features does it offer to enhance the process?
         </div>
-        <div class="triangle"></div>
+        <div class="triangle" @click="clicked(4)" id="t4" style="margin-top: 0.5rem"></div>
       </div>
-      <hr hidden color="white" class="line" />
-      <div hidden class="answer">
+      <hr color="white" class="line hidden" id="h4" />
+      <div class="answer hidden" id="a4">
         A. The CV generator app guides you through a simple process to create a personalized CV. You
         enter your details, choose from industry-specific templates, and customize sections like
         skills, education, and experience. Features like drag-and-drop section reordering, keyword
@@ -274,8 +310,6 @@ html {
   margin: 3rem 4rem;
 }
 .contactHead {
-  /* Contact Us */
-
   width: 20rem;
   height: 4rem;
 
@@ -294,6 +328,10 @@ html {
   background-color: black;
   padding-bottom: 2.5rem;
 }
+.hidden {
+  display: none;
+}
+
 .answer {
   margin: 0 10rem;
   padding: 0.35rem 1rem 1rem;
@@ -310,16 +348,17 @@ html {
 .line {
   margin: 0 10rem;
 }
+
 .faqt {
   font-family: 'Inter';
   font-style: normal;
   font-weight: 800;
   font-size: 1.1rem;
   line-height: 1.4rem;
-
   color: #000000;
   width: 50rem;
 }
+
 .slide {
   display: flex;
   justify-content: space-between;
@@ -328,12 +367,15 @@ html {
   border: 1px solid #000000;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 100px;
+  cursor: pointer;
 }
+
 .triangle {
   border-left: 0.5rem solid transparent;
   border-right: 0.5rem solid transparent;
   border-bottom: 1rem solid #000000;
   transform: rotate(90deg);
+  transition: transform 0.3s ease;
 }
 
 .slideclicked {
@@ -342,17 +384,18 @@ html {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
+
 .faqtclicked {
   color: white;
 }
 
 .triangleclicked {
-  border-left: 0.5rem solid transparent;
-  border-right: 0.5rem solid transparent;
-  border-bottom: 1rem solid #ffffff;
   transform: rotate(180deg);
+  border-bottom: 1rem solid white;
   margin-top: 0.25rem;
+  transition: transform 0.3s ease;
 }
+
 .navbar {
   color: white;
   display: flex;
@@ -412,6 +455,12 @@ html {
   padding-top: 1.5rem;
 }
 
+.startBbox {
+  margin: 10rem 0 0 0;
+  display: flex;
+  justify-content: center;
+}
+
 .startB {
   height: 3rem;
   width: 10rem;
@@ -422,12 +471,7 @@ html {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 100px;
   border: none;
-}
-
-.startBbox {
-  margin: 10rem 0 0 0;
-  display: flex;
-  justify-content: center;
+  transition: background-color 0.3s ease;
 }
 
 .starth {
@@ -441,8 +485,16 @@ html {
   align-items: center;
   letter-spacing: 0.1px;
   color: #ffffff;
+  transition: color 0.3s ease;
 }
 
+.startB:hover {
+  background-color: #ffffff;
+}
+
+.startB:hover .starth {
+  color: #000000;
+}
 .point {
   width: 1rem;
   height: 1rem;

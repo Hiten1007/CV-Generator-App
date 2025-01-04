@@ -45,7 +45,7 @@ const addStudy = () => {
         <div class="box">
           <label :for="study.grade + { index }" class="label">Percentage/CGPA</label>
           <input
-            type="number"
+            type="text"
             v-bind:id="study.grade + { index }"
             v-model="study.grade"
             class="input"
@@ -113,6 +113,14 @@ const addStudy = () => {
   box-shadow: 0px 0.4rem 0.4rem rgba(0, 0, 0, 0.25);
   border-radius: 100px;
   border: none;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
+}
+
+.navbutton:hover {
+  background-color: white;
+  color: black;
 }
 .navbuttons1 {
   display: flex;
@@ -137,7 +145,16 @@ const addStudy = () => {
 
   color: #ffffff;
   border: none;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
 }
+
+.addstudy:hover {
+  background-color: white;
+  color: black;
+}
+
 .date {
   display: flex;
   justify-content: space-between;

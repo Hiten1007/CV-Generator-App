@@ -74,6 +74,14 @@ const addField = () => {
   box-shadow: 0px 0.4rem 0.4rem rgba(0, 0, 0, 0.25);
   border-radius: 100px;
   border: none;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
+}
+
+.navbutton:hover {
+  background-color: white;
+  color: black;
 }
 .navbuttons1 {
   display: flex;
@@ -98,6 +106,14 @@ const addField = () => {
 
   color: #ffffff;
   border: none;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
+}
+
+.addfield:hover {
+  background-color: white;
+  color: black;
 }
 
 .label {

@@ -24,7 +24,7 @@ const addlink = () => {
       <div class="maininfo">
         <label for="phone" class="labels">Phone No.</label>
         <input
-          type="number"
+          type="text"
           name="phone"
           id="phone"
           v-model="data.personalInfo.phone"
@@ -101,6 +101,14 @@ const addlink = () => {
   box-shadow: 0px 0.4rem 0.4rem rgba(0, 0, 0, 0.25);
   border-radius: 100px;
   border: none;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
+}
+
+.next1:hover {
+  background-color: white;
+  color: black;
 }
 .addlink {
   background-color: black;
@@ -119,8 +127,14 @@ const addlink = () => {
 
   color: #ffffff;
   border: none;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
+}
 
-  /* icon */
+.addlink:hover {
+  background-color: white;
+  color: black;
 }
 .links {
   margin: 0.5rem;
