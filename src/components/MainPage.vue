@@ -28,26 +28,42 @@ const goToBuildResume = () => {
 const clicked = (id) => {
   const slide = document.querySelector('#s' + id)
   const answer = document.querySelector('#a' + id)
-  const line = document.querySelector('#h' + id)
+
   const triangle = document.querySelector('#t' + id)
-  const faqt = document.querySelector('#f' + id)
+
   slide.classList.toggle('slideclicked')
-  faqt.classList.toggle('faqtclicked')
+
   triangle.classList.toggle('triangleclicked')
-  answer.classList.toggle('hidden')
-  line.classList.toggle('hidden')
+
+  // Toggle visibility and sliding effect
+  if (answer.classList.contains('visible')) {
+    answer.classList.remove('visible')
+    setTimeout(() => {
+      answer.classList.add('hidden') // Hide it completely after sliding up
+    }, 0) // Match the transition duration
+  } else {
+    answer.classList.remove('hidden') // Show it before sliding down
+    setTimeout(() => {
+      answer.classList.add('visible')
+    }, 0) // Trigger the animation
+  }
 }
 </script>
 <template>
   <div class="main">
     <div class="nav">
       <div class="navbar">
-        <img src="../assets/image.png" height="40rem" width="40rem" />
-        <div class="headt">Home</div>
-        <div class="headt" @click="goToBuildResume">Build Resume</div>
-        <div class="headt" @click="goToContact">Contact Us</div>
-        <div class="headt" @click="goToFAQ">FAQs</div>
-        <div class="headt" id="openModalBtn" @click="openModal">Login/Sign Up</div>
+        <img
+          src="../assets/image.png"
+          height="40rem"
+          width="40rem"
+          style="margin: 0.5rem 0.75rem 0 0.75rem; padding: 0.25rem"
+        />
+        <div class="headB"><button class="headt">Home</button></div>
+        <div><button class="headt" @click="goToBuildResume">Build Resume</button></div>
+        <div><button class="headt" @click="goToContact">Contact Us</button></div>
+        <div><button class="headt" @click="goToFAQ">FAQs</button></div>
+        <div><button class="headt" id="openModalBtn" @click="openModal">Login/Sign Up</button></div>
       </div>
     </div>
 
@@ -119,50 +135,50 @@ const clicked = (id) => {
     <div class="faqw" id="faqid">
       <h1 class="Faq">FAQs</h1>
     </div>
-    <div class="faq">
+    <div class="faq" @click="clicked(1)">
       <div class="slide" id="s1">
         <div class="faqt" id="f1">Q. Do I need to sign up to use the app?</div>
-        <div class="triangle" @click="clicked(1)" id="t1"></div>
+        <div class="triangle" id="t1"></div>
       </div>
-      <hr color="white" class="line hidden" id="h1" />
+
       <div class="answer hidden" id="a1">
         A. No, you can start using the app without signing up. However, signing up lets you save
         your CVs for future edits and access advanced features.
       </div>
     </div>
-    <div class="faq">
+    <div class="faq" @click="clicked(2)">
       <div class="slide" id="s2">
         <div class="faqt" id="f2">Q. How do I choose the right template?</div>
-        <div class="triangle" @click="clicked(2)" id="t2"></div>
+        <div class="triangle" id="t2"></div>
       </div>
-      <hr color="white" class="line hidden" id="h2" />
+
       <div class="answer hidden" id="a2">
         A. Select a template that aligns with your industry and the role you are applying for. For
         example, use a formal template for corporate jobs and a creative one for design or marketing
         roles.
       </div>
     </div>
-    <div class="faq">
+    <div class="faq" @click="clicked(3)">
       <div class="slide" id="s3">
         <div class="faqt" id="f3">Q. What should I include in my CV?</div>
-        <div class="triangle" @click="clicked(3)" id="t3"></div>
+        <div class="triangle" id="t3"></div>
       </div>
-      <hr class="line hidden" id="h3" />
+
       <div class="answer hidden" id="a3">
         A. Your CV should include: Contact information, A professional summary, Work experience,
         Education details, Skills relevant to the job, Additional sections like certifications or
         projects, if applicable.
       </div>
     </div>
-    <div class="faq">
+    <div class="faq" @click="clicked(4)">
       <div class="slide" id="s4">
         <div class="faqt" id="f4" style="padding-top: 0.3rem">
           Q. How do I use the CV generator app to create a personalized and professional CV, and
           what features does it offer to enhance the process?
         </div>
-        <div class="triangle" @click="clicked(4)" id="t4" style="margin-top: 0.5rem"></div>
+        <div class="triangle" id="t4" style="margin-top: 0.5rem"></div>
       </div>
-      <hr color="white" class="line hidden" id="h4" />
+
       <div class="answer hidden" id="a4">
         A. The CV generator app guides you through a simple process to create a personalized CV. You
         enter your details, choose from industry-specific templates, and customize sections like
@@ -335,16 +351,30 @@ html {
 .answer {
   margin: 0 10rem;
   padding: 0.35rem 1rem 1rem;
-  background-color: black;
+  background-color: white;
   border-bottom-right-radius: 2.5rem;
   border-bottom-left-radius: 2.5rem;
-  color: white;
+  color: #6b6666;
+  border-color: #6b6666;
+  border-style: solid;
+  border-width: 0.01rem;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 800;
   font-size: 1.1rem;
   line-height: 1.4rem;
 }
+
+.answer {
+  max-height: 0; /* Initially hidden */
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.answer.visible {
+  max-height: 30rem; /* Large enough to fit the tallest answer */
+}
+
 .line {
   margin: 0 10rem;
 }
@@ -355,7 +385,7 @@ html {
   font-weight: 800;
   font-size: 1.1rem;
   line-height: 1.4rem;
-  color: #000000;
+  color: #6b6666;
   width: 50rem;
 }
 
@@ -364,7 +394,7 @@ html {
   justify-content: space-between;
   margin: 2.5rem 10rem 0;
   padding: 1rem;
-  border: 1px solid #000000;
+  border: 1px solid #6b6666;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 100px;
   cursor: pointer;
@@ -380,18 +410,14 @@ html {
 
 .slideclicked {
   padding: 1rem 1rem 0.35rem;
-  background-color: black;
+  background-color: white;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-.faqtclicked {
-  color: white;
-}
-
 .triangleclicked {
   transform: rotate(180deg);
-  border-bottom: 1rem solid white;
+
   margin-top: 0.25rem;
   transition: transform 0.3s ease;
 }
@@ -399,15 +425,28 @@ html {
 .navbar {
   color: white;
   display: flex;
-  justify-content: space-around;
-  padding: 0.5rem;
 }
 .headt {
-  padding-top: 0.5rem;
   font-size: 1.1rem;
   font-family: 'Inter', serif;
   font-weight: 500;
+  margin: 0;
+  border-radius: 0;
+
+  padding: 0;
+  height: 3.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
+
+.headt:hover {
+  background-color: white;
+  color: black;
+}
+.headB {
+  height: 3.5rem;
+}
+
 .nav {
   background-color: black;
   height: 3.5rem;
